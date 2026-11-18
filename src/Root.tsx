@@ -4,12 +4,21 @@ import { HelloWorld } from "./HelloWorld";
 import { Logo } from "./HelloWorld/Logo";
 import { Title } from "./HelloWorld/Title";
 import { OmniTurnkeyIntro } from "./OmniTurnkeyIntro";
+import { OmniTurnkeyPromo } from "./OmniTurnkeyPromo";
 
 // Each <Composition> is an entry in the sidebar!
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      <Composition
+        id="OmniTurnkeyPromo"
+        component={OmniTurnkeyPromo}
+        durationInFrames={900}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
       <Composition
         id="OmniTurnkeyIntro"
         component={OmniTurnkeyIntro}
