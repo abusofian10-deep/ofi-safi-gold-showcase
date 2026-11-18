@@ -1,5 +1,5 @@
 import React from "react";
-import { AbsoluteFill, Series } from "remotion";
+import { AbsoluteFill, Audio, Series, staticFile } from "remotion";
 import { PromoBackground } from "./Background";
 import { Scene1Intro } from "./Scene1Intro";
 import { Scene2Problem } from "./Scene2Problem";
@@ -10,33 +10,40 @@ import { Scene5Outro } from "./Scene5Outro";
 export const OmniTurnkeyPromo: React.FC = () => {
   return (
     <AbsoluteFill className="bg-[#0B132B]">
-      {/* Persistent Animated Background */}
+      {/* 1. Subtle Corporate Ambient Background Music (looped/continuous) */}
+      <Audio
+        src={staticFile("audio/ambient-bg.wav")}
+        volume={0.12}
+        loop
+      />
+
+      {/* 2. Persistent Visual Background with Grid & Particles */}
       <PromoBackground />
 
-      {/* 5 Sequential Scenes */}
+      {/* 3. 5 Sequential Scenes with Audio-Visual Synchronization */}
       <Series>
-        {/* Scene 1: 0 - 5s (150 frames) */}
-        <Series.Sequence durationInFrames={150}>
+        {/* Scene 1: Introduction & Identity (180 frames = 6.0s) */}
+        <Series.Sequence durationInFrames={180}>
           <Scene1Intro />
         </Series.Sequence>
 
-        {/* Scene 2: 5 - 11s (180 frames) */}
-        <Series.Sequence durationInFrames={180}>
+        {/* Scene 2: The Challenge & Corporate Reality (300 frames = 10.0s) */}
+        <Series.Sequence durationInFrames={300}>
           <Scene2Problem />
         </Series.Sequence>
 
-        {/* Scene 3: 11 - 18s (210 frames) */}
-        <Series.Sequence durationInFrames={210}>
+        {/* Scene 3: The Integrated Solution Diagram (400 frames = 13.33s) */}
+        <Series.Sequence durationInFrames={400}>
           <Scene3Solution />
         </Series.Sequence>
 
-        {/* Scene 4: 18 - 24s (180 frames) */}
-        <Series.Sequence durationInFrames={180}>
+        {/* Scene 4: Proven Impact & Numeric Counters (300 frames = 10.0s) */}
+        <Series.Sequence durationInFrames={300}>
           <Scene4WhyUs />
         </Series.Sequence>
 
-        {/* Scene 5: 24 - 30s (180 frames) */}
-        <Series.Sequence durationInFrames={180}>
+        {/* Scene 5: Outro & Call to Action (310 frames = 10.33s) */}
+        <Series.Sequence durationInFrames={310}>
           <Scene5Outro />
         </Series.Sequence>
       </Series>

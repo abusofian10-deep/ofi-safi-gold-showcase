@@ -1,8 +1,10 @@
 import React from "react";
 import {
   AbsoluteFill,
+  Audio,
   Img,
   interpolate,
+  Sequence,
   spring,
   staticFile,
   useCurrentFrame,
@@ -53,8 +55,8 @@ export const Scene5Outro: React.FC = () => {
   const ctaY = interpolate(ctaSpring, [0, 1], [30, 0]);
   const ctaScale = interpolate(ctaSpring, [0, 1], [0.92, 1]);
 
-  // Master Fade out in the last second (Frames 150 to 180)
-  const masterFadeOut = interpolate(frame, [150, 180], [1, 0], {
+  // Master Fade out in the last second (Frames 280 to 310)
+  const masterFadeOut = interpolate(frame, [280, 310], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -66,6 +68,19 @@ export const Scene5Outro: React.FC = () => {
         opacity: enterOpacity * masterFadeOut,
       }}
     >
+      {/* Audio: Scene Transition Whoosh */}
+      <Audio src={staticFile("audio/whoosh.wav")} volume={0.25} />
+
+      {/* Audio: Voiceover for Scene 5 */}
+      <Sequence from={5}>
+        <Audio src={staticFile("voiceover/scene5.mp3")} volume={1.0} />
+      </Sequence>
+
+      {/* Audio: CTA Pop/Tick */}
+      <Sequence from={50}>
+        <Audio src={staticFile("audio/tick.wav")} volume={0.25} />
+      </Sequence>
+
       <div className="relative flex flex-col items-center justify-center z-10 text-center">
         {/* Soft Central Radial Glow behind logo */}
         <div
@@ -75,17 +90,17 @@ export const Scene5Outro: React.FC = () => {
           }}
         />
 
-        {/* 1. Logo */}
+        {/* 1. Transparent Cropped Logo */}
         <div
           style={{
             transform: `translateY(${logoY}px) scale(${logoScale})`,
           }}
-          className="mb-6"
+          className="mb-6 flex items-center justify-center"
         >
           <Img
             src={staticFile("logo.png")}
             alt="Omni Turnkey Logo"
-            className="w-32 h-32 object-contain"
+            className="h-28 w-auto object-contain"
             style={{
               filter:
                 "drop-shadow(0 10px 35px rgba(197, 160, 89, 0.4)) drop-shadow(0 2px 10px rgba(0,0,0,0.7))",
@@ -100,7 +115,7 @@ export const Scene5Outro: React.FC = () => {
           </h2>
         </div>
 
-        {/* 2. Slogan */}
+        {/* 2. Formal Arabic Slogan */}
         <div
           dir="rtl"
           style={{

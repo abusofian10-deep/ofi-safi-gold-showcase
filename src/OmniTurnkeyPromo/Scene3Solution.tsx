@@ -1,8 +1,11 @@
 import React from "react";
 import {
   AbsoluteFill,
+  Audio,
   interpolate,
+  Sequence,
   spring,
+  staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
@@ -92,12 +95,12 @@ export const Scene3Solution: React.FC = () => {
     },
   ];
 
-  // Exit transition (Frames 185 to 210)
-  const exitOpacity = interpolate(frame, [185, 210], [1, 0], {
+  // Exit transition (Frames 375 to 400)
+  const exitOpacity = interpolate(frame, [375, 400], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const exitScale = interpolate(frame, [185, 210], [1, 0.95], {
+  const exitScale = interpolate(frame, [375, 400], [1, 0.95], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -110,6 +113,28 @@ export const Scene3Solution: React.FC = () => {
         transform: `scale(${exitScale})`,
       }}
     >
+      {/* Audio: Scene Transition Whoosh */}
+      <Audio src={staticFile("audio/whoosh.wav")} volume={0.25} />
+
+      {/* Audio: Voiceover for Scene 3 */}
+      <Sequence from={5}>
+        <Audio src={staticFile("voiceover/scene3.mp3")} volume={1.0} />
+      </Sequence>
+
+      {/* Audio: Node Appear Ticks */}
+      <Sequence from={45}>
+        <Audio src={staticFile("audio/tick.wav")} volume={0.2} />
+      </Sequence>
+      <Sequence from={57}>
+        <Audio src={staticFile("audio/tick.wav")} volume={0.2} />
+      </Sequence>
+      <Sequence from={69}>
+        <Audio src={staticFile("audio/tick.wav")} volume={0.2} />
+      </Sequence>
+      <Sequence from={81}>
+        <Audio src={staticFile("audio/tick.wav")} volume={0.2} />
+      </Sequence>
+
       {/* Category Pill Tag */}
       <div
         style={{

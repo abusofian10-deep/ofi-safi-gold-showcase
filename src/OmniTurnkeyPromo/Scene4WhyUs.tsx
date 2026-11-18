@@ -1,8 +1,11 @@
 import React from "react";
 import {
   AbsoluteFill,
+  Audio,
   interpolate,
+  Sequence,
   spring,
+  staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
@@ -26,21 +29,21 @@ export const Scene4WhyUs: React.FC = () => {
   const headerY = interpolate(headerSpring, [0, 1], [30, 0]);
 
   // Counter 1: 0 to 17
-  const count1Progress = interpolate(frame, [25, 75], [0, 17], {
+  const count1Progress = interpolate(frame, [25, 85], [0, 17], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
   const count1 = Math.floor(count1Progress);
 
   // Counter 2: 0 to 360
-  const count2Progress = interpolate(frame, [40, 95], [0, 360], {
+  const count2Progress = interpolate(frame, [45, 120], [0, 360], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
   const count2 = Math.floor(count2Progress);
 
   // Counter 3: 0 to 100
-  const count3Progress = interpolate(frame, [55, 105], [0, 100], {
+  const count3Progress = interpolate(frame, [65, 135], [0, 100], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -82,12 +85,12 @@ export const Scene4WhyUs: React.FC = () => {
     },
   ];
 
-  // Exit transition (Frames 155 to 180)
-  const exitOpacity = interpolate(frame, [155, 180], [1, 0], {
+  // Exit transition (Frames 275 to 300)
+  const exitOpacity = interpolate(frame, [275, 300], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const exitY = interpolate(frame, [155, 180], [0, -30], {
+  const exitY = interpolate(frame, [275, 300], [0, -30], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -101,6 +104,25 @@ export const Scene4WhyUs: React.FC = () => {
         transform: `translateY(${exitY}px)`,
       }}
     >
+      {/* Audio: Scene Transition Whoosh */}
+      <Audio src={staticFile("audio/whoosh.wav")} volume={0.25} />
+
+      {/* Audio: Voiceover for Scene 4 */}
+      <Sequence from={5}>
+        <Audio src={staticFile("voiceover/scene4.mp3")} volume={1.0} />
+      </Sequence>
+
+      {/* Audio: Card Pops/Ticks */}
+      <Sequence from={25}>
+        <Audio src={staticFile("audio/tick.wav")} volume={0.2} />
+      </Sequence>
+      <Sequence from={45}>
+        <Audio src={staticFile("audio/tick.wav")} volume={0.2} />
+      </Sequence>
+      <Sequence from={65}>
+        <Audio src={staticFile("audio/tick.wav")} volume={0.2} />
+      </Sequence>
+
       {/* Category Tag */}
       <div
         style={{
@@ -137,7 +159,7 @@ export const Scene4WhyUs: React.FC = () => {
       {/* 3 Metric Cards with Animated Counters */}
       <div className="grid grid-cols-3 gap-8 w-full max-w-6xl">
         {metrics.map((m, idx) => {
-          const cardDelay = 25 + idx * 15;
+          const cardDelay = 25 + idx * 20;
           const cardSpring = spring({
             frame: frame - cardDelay,
             fps,

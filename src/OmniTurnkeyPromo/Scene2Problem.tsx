@@ -1,8 +1,11 @@
 import React from "react";
 import {
   AbsoluteFill,
+  Audio,
   interpolate,
+  Sequence,
   spring,
+  staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
@@ -89,12 +92,12 @@ export const Scene2Problem: React.FC = () => {
     },
   ];
 
-  // Exit transition (Frames 155 to 180)
-  const exitOpacity = interpolate(frame, [155, 180], [1, 0], {
+  // Exit transition (Frames 275 to 300)
+  const exitOpacity = interpolate(frame, [275, 300], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const exitY = interpolate(frame, [155, 180], [0, -30], {
+  const exitY = interpolate(frame, [275, 300], [0, -30], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -108,6 +111,25 @@ export const Scene2Problem: React.FC = () => {
         transform: `translateY(${exitY}px)`,
       }}
     >
+      {/* Audio: Scene Transition Whoosh */}
+      <Audio src={staticFile("audio/whoosh.wav")} volume={0.25} />
+
+      {/* Audio: Voiceover for Scene 2 */}
+      <Sequence from={5}>
+        <Audio src={staticFile("voiceover/scene2.mp3")} volume={1.0} />
+      </Sequence>
+
+      {/* Audio: Card Pops/Ticks */}
+      <Sequence from={35}>
+        <Audio src={staticFile("audio/tick.wav")} volume={0.2} />
+      </Sequence>
+      <Sequence from={53}>
+        <Audio src={staticFile("audio/tick.wav")} volume={0.2} />
+      </Sequence>
+      <Sequence from={71}>
+        <Audio src={staticFile("audio/tick.wav")} volume={0.2} />
+      </Sequence>
+
       {/* Category Pill Tag */}
       <div
         style={{
@@ -119,7 +141,7 @@ export const Scene2Problem: React.FC = () => {
         }}
         className="mb-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[rgba(197,160,89,0.35)] bg-[rgba(197,160,89,0.08)] backdrop-blur-md"
       >
-        <span className="w-2 h-2 rounded-full bg-[#C5A059] animate-pulse" />
+        <span className="w-2 h-2 rounded-full bg-[#C5A059]" />
         <span className="text-sm font-semibold text-[#F3DC9B] tracking-wider uppercase font-inter">
           واقع الأعمال | Corporate Challenges
         </span>

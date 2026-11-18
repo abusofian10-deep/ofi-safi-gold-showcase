@@ -1,6 +1,7 @@
 import React from "react";
 import {
   AbsoluteFill,
+  Audio,
   Img,
   interpolate,
   spring,
@@ -64,12 +65,12 @@ export const Scene1Intro: React.FC = () => {
   });
   const subY = interpolate(subSpring, [0, 1], [-18, 0]);
 
-  // Transition Out (Frames 128 to 150)
-  const exitOpacity = interpolate(frame, [130, 150], [1, 0], {
+  // Transition Out (Frames 160 to 180)
+  const exitOpacity = interpolate(frame, [160, 180], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const exitScale = interpolate(frame, [130, 150], [1, 0.95], {
+  const exitScale = interpolate(frame, [160, 180], [1, 0.95], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -82,6 +83,13 @@ export const Scene1Intro: React.FC = () => {
         transform: `scale(${exitScale})`,
       }}
     >
+      {/* Voiceover for Scene 1 (starts at frame 10) */}
+      <Audio
+        src={staticFile("voiceover/scene1.mp3")}
+        volume={1.0}
+        startFrom={0}
+      />
+
       <div className="relative flex flex-col items-center justify-center z-10">
         {/* Soft Central Radial Glow */}
         <div
@@ -91,7 +99,7 @@ export const Scene1Intro: React.FC = () => {
           }}
         />
 
-        {/* 1. Logo */}
+        {/* 1. Transparent Cropped Logo */}
         <div
           style={{
             opacity: logoOpacity,
@@ -102,7 +110,7 @@ export const Scene1Intro: React.FC = () => {
           <Img
             src={staticFile("logo.png")}
             alt="Omni Turnkey Logo"
-            className="w-32 h-32 object-contain"
+            className="h-28 w-auto object-contain"
             style={{
               filter:
                 "drop-shadow(0 8px 30px rgba(197, 160, 89, 0.35)) drop-shadow(0 2px 10px rgba(0,0,0,0.7))",
@@ -155,7 +163,7 @@ export const Scene1Intro: React.FC = () => {
           />
         </div>
 
-        {/* 4. Arabic Subtitle */}
+        {/* 4. Arabic Subtitle in Formal MSA */}
         <div
           dir="rtl"
           style={{
@@ -164,7 +172,7 @@ export const Scene1Intro: React.FC = () => {
           }}
           className="mt-5 text-center"
         >
-          <div className="inline-block px-5 py-2 rounded-full border border-[rgba(197,160,89,0.3)] bg-[rgba(14,23,46,0.6)] backdrop-blur-md">
+          <div className="inline-block px-6 py-2 rounded-full border border-[rgba(197,160,89,0.3)] bg-[rgba(14,23,46,0.6)] backdrop-blur-md">
             <p className="text-xl font-bold text-[#CBD5E1] tracking-wide font-cairo">
               أومني تيرنكي — <span className="text-[#C5A059]">للاستشارات الإدارية المتكاملة</span>
             </p>
