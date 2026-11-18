@@ -1,8 +1,10 @@
 import React from "react";
 import {
   AbsoluteFill,
+  Img,
   interpolate,
   spring,
+  staticFile,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
@@ -11,12 +13,14 @@ export interface OmniTurnkeyIntroProps {
   title?: string;
   tagline?: string;
   goldColor?: string;
+  logoSrc?: string;
 }
 
 export const OmniTurnkeyIntro: React.FC<OmniTurnkeyIntroProps> = ({
   title = "OMNI TURNKEY",
   tagline = "Strategic Governance & Integrated Management Consulting",
   goldColor = "#C5A059",
+  logoSrc = staticFile("logo.png"),
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -38,7 +42,25 @@ export const OmniTurnkeyIntro: React.FC<OmniTurnkeyIntroProps> = ({
     extrapolateRight: "clamp",
   });
 
-  // 2. Title Animation (Seconds 1 to 3 -> frames 30 to 90)
+  // 2. Logo Animation (Starts at 0.5s -> frame 15, half a second before the title)
+  const logoSpring = spring({
+    frame: frame - 15,
+    fps,
+    config: {
+      damping: 14,
+      mass: 0.8,
+      stiffness: 80,
+    },
+  });
+
+  const logoOpacity = interpolate(frame, [15, 35], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const logoScale = interpolate(logoSpring, [0, 1], [0.85, 1]);
+  const logoTranslateY = interpolate(logoSpring, [0, 1], [22, 0]);
+
+  // 3. Title Animation (Seconds 1 to 3 -> frames 30 to 90)
   const titleSpring = spring({
     frame: frame - 30,
     fps,
@@ -53,10 +75,10 @@ export const OmniTurnkeyIntro: React.FC<OmniTurnkeyIntroProps> = ({
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const titleTranslateY = interpolate(titleSpring, [0, 1], [35, 0]);
-  const titleLetterSpacing = interpolate(titleSpring, [0, 1], [0.38, 0.28]);
+  const titleTranslateY = interpolate(titleSpring, [0, 1], [30, 0]);
+  const titleLetterSpacing = interpolate(titleSpring, [0, 1], [0.36, 0.28]);
 
-  // 3. Tagline Animation (Seconds 2.5 to 4.5 -> frames 75 to 135)
+  // 4. Tagline Animation (Seconds 2.5 to 4.5 -> frames 75 to 135)
   const taglineSpring = spring({
     frame: frame - 75,
     fps,
@@ -71,15 +93,15 @@ export const OmniTurnkeyIntro: React.FC<OmniTurnkeyIntroProps> = ({
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const taglineTranslateY = interpolate(taglineSpring, [0, 1], [-20, 0]);
+  const taglineTranslateY = interpolate(taglineSpring, [0, 1], [-18, 0]);
 
-  // 4. Subtle Breathing Scale (Seconds 0 to 6)
+  // 5. Subtle Breathing Scale (Seconds 0 to 6)
   const subtleScale = interpolate(frame, [0, 180], [0.985, 1.025], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // 5. Final Fade Out (Seconds 5.5 to 6 -> frames 165 to 180)
+  // 6. Final Fade Out (Seconds 5.5 to 6 -> frames 165 to 180)
   const masterFadeOut = interpolate(frame, [165, 180], [1, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -127,13 +149,32 @@ export const OmniTurnkeyIntro: React.FC<OmniTurnkeyIntroProps> = ({
           transform: `scale(${subtleScale})`,
         }}
       >
-        {/* Soft Central Radial Glow behind typography */}
+        {/* Soft Central Radial Glow behind logo and typography */}
         <div
-          className="absolute -inset-24 rounded-full pointer-events-none blur-3xl opacity-35"
+          className="absolute -inset-28 rounded-full pointer-events-none blur-3xl opacity-35"
           style={{
-            background: "radial-gradient(circle, rgba(197, 160, 89, 0.18) 0%, rgba(28, 37, 65, 0) 70%)",
+            background: "radial-gradient(circle, rgba(197, 160, 89, 0.22) 0%, rgba(28, 37, 65, 0) 70%)",
           }}
         />
+
+        {/* Brand Logo: Appears at 0.5s with Fade-in & Scale */}
+        <div
+          style={{
+            opacity: logoOpacity,
+            transform: `translateY(${logoTranslateY}px) scale(${logoScale})`,
+          }}
+          className="mb-5 flex items-center justify-center"
+        >
+          <Img
+            src={logoSrc}
+            alt="Omni Turnkey Logo"
+            className="w-28 h-28 object-contain"
+            style={{
+              filter:
+                "drop-shadow(0 6px 28px rgba(197, 160, 89, 0.32)) drop-shadow(0 2px 12px rgba(0, 0, 0, 0.6))",
+            }}
+          />
+        </div>
 
         {/* Title: OMNI TURNKEY */}
         <div
