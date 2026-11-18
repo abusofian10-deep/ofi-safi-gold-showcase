@@ -3,12 +3,26 @@ import { Composition, Folder } from "remotion";
 import { HelloWorld } from "./HelloWorld";
 import { Logo } from "./HelloWorld/Logo";
 import { Title } from "./HelloWorld/Title";
+import { OmniTurnkeyIntro } from "./OmniTurnkeyIntro";
 
 // Each <Composition> is an entry in the sidebar!
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      <Composition
+        id="OmniTurnkeyIntro"
+        component={OmniTurnkeyIntro}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{
+          title: "OMNI TURNKEY",
+          tagline: "Strategic Governance & Integrated Management Consulting",
+          goldColor: "#C5A059",
+        }}
+      />
       <Folder name="Elements">
         <Composition
           id="Logo"
