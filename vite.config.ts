@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: './',
+  base: '/ofi-safi-gold-showcase/',
   plugins: [
     react(),
     tailwindcss(),
