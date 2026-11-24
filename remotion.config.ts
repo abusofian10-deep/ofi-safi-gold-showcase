@@ -1,9 +1,5 @@
-// See all configuration options: https://remotion.dev/docs/config
-// Each option also is available as a CLI flag: https://remotion.dev/docs/cli
-
-// Note: When using the Node.JS APIs, the config file doesn't apply. Instead, pass options directly to the APIs
-
 import fs from "fs";
+import path from "path";
 import { Config } from "@remotion/cli/config";
 import { enableTailwind } from "@remotion/tailwind-v4";
 
@@ -15,4 +11,17 @@ if (fs.existsSync(chromePath)) {
 Config.setRspack(true);
 Config.setVideoImageFormat("jpeg");
 Config.setOverwriteOutput(true);
-Config.overrideBundlerConfig(enableTailwind);
+
+Config.overrideBundlerConfig((currentConfig) => {
+  const tailwindConfig = enableTailwind(currentConfig);
+  return {
+    ...tailwindConfig,
+    resolve: {
+      ...tailwindConfig.resolve,
+      alias: {
+        ...(tailwindConfig.resolve?.alias || {}),
+        react: path.resolve(process.cwd(), "src/react-shim.js"),
+      },
+    },
+  };
+});

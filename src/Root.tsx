@@ -5,12 +5,83 @@ import { Logo } from "./HelloWorld/Logo";
 import { Title } from "./HelloWorld/Title";
 import { OmniTurnkeyIntro } from "./OmniTurnkeyIntro";
 import { OmniTurnkeyPromo } from "./OmniTurnkeyPromo";
+import { OfficeScene } from "./OfficeScene";
+import { SafiGoldCommercial } from "./SafiGoldCommercial";
+import { SafiGoldB2BCommercial } from "./SafiGoldB2BCommercial";
+import { SafiGoldGovernanceCommercial } from "./SafiGoldGovernanceCommercial";
+import { SafiGoldCommercialEN } from "./SafiGoldCommercialEN";
+import { SafiGoldB2BCommercialEN } from "./SafiGoldB2BCommercialEN";
+import { SafiGoldGovernanceCommercialEN } from "./SafiGoldGovernanceCommercialEN";
 
 // Each <Composition> is an entry in the sidebar!
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      <Composition
+        id="SafiGoldGovernanceCommercial"
+        component={SafiGoldGovernanceCommercial}
+        durationInFrames={1200}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="SafiGoldB2BCommercial"
+        component={SafiGoldB2BCommercial}
+        durationInFrames={960}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="SafiGoldCommercial"
+        component={SafiGoldCommercial}
+        durationInFrames={720}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="SafiGoldCommercialEN"
+        component={SafiGoldCommercialEN}
+        durationInFrames={480}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="SafiGoldB2BCommercialEN"
+        component={SafiGoldB2BCommercialEN}
+        durationInFrames={600}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="SafiGoldGovernanceCommercialEN"
+        component={SafiGoldGovernanceCommercialEN}
+        durationInFrames={750}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+      <Composition
+        id="omni-turnkey-team"
+        component={OfficeScene}
+        durationInFrames={900}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="OmniTurnkeyVirtualOffice"
+        component={OfficeScene}
+        durationInFrames={900}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
       <Composition
         id="OmniTurnkeyPromo"
         component={OmniTurnkeyPromo}
