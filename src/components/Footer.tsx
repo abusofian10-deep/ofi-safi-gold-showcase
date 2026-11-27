@@ -12,13 +12,19 @@ export const Footer: React.FC<FooterProps> = ({ language }) => {
     <footer className="w-full border-t border-[#D4AF37]/25 bg-[#080D1D]/95 backdrop-blur-md py-4 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         
-        {/* Omni Turnkey Branding with Actual Image Logo (Replaces plain text) */}
+        {/* Omni Turnkey Branding with Animated Motion Logo */}
         <div className="flex items-center gap-3 text-center sm:text-start">
-          <img
-            src="./assets/omni_logo.png"
-            alt="Omni Turnkey"
-            className="h-8 md:h-10 w-auto object-contain brightness-110 drop-shadow-[0_2px_8px_rgba(212,175,55,0.3)]"
-          />
+          <div className="relative h-9 md:h-11 w-9 md:w-11 flex items-center justify-center rounded-lg overflow-hidden shrink-0">
+            <video
+              src="./assets/omni_logo_anim.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster="./assets/omni_logo.png"
+              className="h-full w-full object-contain mix-blend-screen brightness-115 drop-shadow-[0_2px_10px_rgba(212,175,55,0.35)]"
+            />
+          </div>
           <div className="flex flex-col">
             <span className="font-extrabold gold-gradient-text text-xs md:text-sm tracking-wider uppercase">
               OMNI TURNKEY

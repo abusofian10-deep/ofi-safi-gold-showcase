@@ -42,13 +42,19 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="fixed top-0 inset-x-0 z-40 bg-[#080D1D]/92 backdrop-blur-xl border-b border-[#D4AF37]/25 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 md:h-20 flex items-center justify-between gap-3 md:gap-6">
         
-        {/* Omni Turnkey Branding ONLY (OFI and Made in Oman completely removed from Header) */}
+        {/* Omni Turnkey Branding with Animated Motion Logo */}
         <div className="flex items-center gap-3 shrink-0">
-          <img
-            src="./assets/omni_logo.png"
-            alt="Omni Turnkey Logo"
-            className="h-9 md:h-11 w-auto object-contain brightness-110 drop-shadow-[0_2px_10px_rgba(212,175,55,0.3)]"
-          />
+          <div className="relative h-10 md:h-12 w-10 md:w-12 flex items-center justify-center rounded-lg overflow-hidden shrink-0 group">
+            <video
+              src="./assets/omni_logo_anim.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              poster="./assets/omni_logo.png"
+              className="h-full w-full object-contain mix-blend-screen brightness-115 drop-shadow-[0_2px_12px_rgba(212,175,55,0.4)] group-hover:scale-105 transition-transform"
+            />
+          </div>
           <div className="flex flex-col">
             <span className="font-extrabold tracking-wider text-xs md:text-sm gold-gradient-text uppercase">
               OMNI TURNKEY
